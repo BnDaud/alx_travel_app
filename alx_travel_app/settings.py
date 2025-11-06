@@ -30,9 +30,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGOSECRETKEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [  'alx-travel-app-6odf.onrender.com',  # ✅ your Render domain
+    'localhost',
+    '127.0.0.1',]
 
 app = ["listings" ,  'drf_yasg', "corsheaders" ,"rest_framework", 'rest_framework_simplejwt',]
 # Application definition
