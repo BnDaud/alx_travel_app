@@ -32,9 +32,8 @@ SECRET_KEY = os.getenv("DJANGOSECRETKEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [  'alx-travel-app-6odf.onrender.com',  # ✅ your Render domain
-    'localhost',
-    '127.0.0.1',]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+
 
 app = ["listings" ,  'drf_yasg', "corsheaders" ,"rest_framework", 'rest_framework_simplejwt',]
 # Application definition
