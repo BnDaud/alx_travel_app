@@ -9,8 +9,14 @@ https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
 
 import os
 
-from django.core.wsgi import get_wsgi_application
-
+# ✅ Set the Django settings module first
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'alx_travel_app.settings')
 
+# ✅ Then import Django's WSGI handler
+from django.core.wsgi import get_wsgi_application
+
+# ✅ Now you can import your populate script
+import populate  # temporary, runs once on app startup
+
+# WSGI application
 application = get_wsgi_application()
