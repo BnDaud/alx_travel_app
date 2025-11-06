@@ -1,5 +1,6 @@
 import os
 import django
+from django.core.management import call_command
 from faker import Faker
 from random import randint, choice, uniform
 from decimal import Decimal
@@ -10,25 +11,29 @@ from django.utils import timezone
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'alx_travel_app.settings')
 django.setup()
 
+# --- 0️⃣ Run migrations ---
+call_command('migrate', interactive=False)
+print("✅ Migrations applied")
+
 # Now import your models
 from listings.models import User, Listing, Booking, Review
 
 fake = Faker()
 
-# --- 0️⃣ Create superuser 'mac' ---
+# --- 1️⃣ Create superuser 'mac' ---
 if not User.objects.filter(username='mac').exists():
     User.objects.create_superuser(
         username='mac',
         email='mac@example.com',
         password='macbook01',
-        role='admin',  # or 'superuser', depending on your model
+        role='admin',
         phone_number='000-000-0000'
     )
     print("✅ Superuser 'mac' created")
 else:
     print("Superuser 'mac' already exists")
 
-# --- 1️⃣ Create 10 fake users ---
+# --- 2️⃣ Populate fake users, listings, bookings, reviews (same as your script) ---
 roles = ["host", "admin", "guest"]
 users = []
 for _ in range(10):
@@ -42,11 +47,8 @@ for _ in range(10):
     users.append(user)
 print("✅ 10 users created")
 
-# --- 2️⃣ Create listings (only if hosts exist) ---
 hosts = [u for u in users if u.role == "host"]
-if not hosts:
-    print("⚠️ No hosts found. Skipping listings...")
-else:
+if hosts:
     listings = []
     for _ in range(randint(50, 100)):
         host = choice(hosts)
@@ -60,7 +62,6 @@ else:
         listings.append(listing)
     print(f"✅ {len(listings)} listings created")
 
-    # --- 3️⃣ Create bookings ---
     bookings = []
     for _ in range(randint(60, 120)):
         user = choice(users)
@@ -79,7 +80,6 @@ else:
         bookings.append(booking)
     print(f"✅ {len(bookings)} bookings created")
 
-    # --- 4️⃣ Create reviews ---
     for _ in range(randint(80, 150)):
         listing = choice(listings)
         Review.objects.create(
@@ -88,3 +88,5 @@ else:
             comment=fake.sentence(nb_words=15)
         )
     print("✅ Reviews created successfully")
+else:
+    print("⚠️ No hosts found. Skipping listings/bookings/reviews...")
