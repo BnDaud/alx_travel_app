@@ -4,6 +4,7 @@ from django.conf import settings
 
 @shared_task
 def sendPaymentmail(to_email , subject , message):
+    
     send_mail(
         subject=subject,
         message= message,

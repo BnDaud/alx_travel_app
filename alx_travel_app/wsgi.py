@@ -16,7 +16,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'alx_travel_app.settings')
 from django.core.wsgi import get_wsgi_application
 
 # ✅ Now you can import your populate script
-import populate  # temporary, runs once on app startup
+#import populate  # temporary, runs once on app startup
 
 # WSGI application
 application = get_wsgi_application()

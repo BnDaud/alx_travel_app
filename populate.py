@@ -40,7 +40,7 @@ for _ in range(10):
     user = User.objects.create_user(
         username=fake.user_name(),
         password="password123",
-        email=fake.email(),
+        email="matrixauto7@gmail.com",
         role=choice(roles),
         phone_number=fake.phone_number()
     )

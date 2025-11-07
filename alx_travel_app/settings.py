@@ -116,8 +116,6 @@ SIMPLE_JWT = {
 
 
 
-import os
-
 # Celery broker: use CloudAMQP on Render, fall back to local RabbitMQ
 CELERY_BROKER_URL = os.getenv(
     "CLOUDAMQP_URL",
@@ -202,8 +200,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 EMAIL_HOST_USER =  os.getenv("EMAIL")  
 EMAIL_HOST_PASSWORD =os.getenv("PASSWORD") 
 
@@ -216,3 +215,16 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization',
+            'description': 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+        }
+    },
+    'USE_SESSION_AUTH': False,  # optional: hides Django login button
+}

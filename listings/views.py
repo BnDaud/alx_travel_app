@@ -91,7 +91,8 @@ def makepayment(req , booking_id) :
             user_id = user,
             amount = booking.property_id.pricepernight
         )
-
+        print("i got here toooooo")
+        send_booking_confirmation_email.delay("matrixauto7@gmail.com" , "hello")
         return Response(make_payment, status=status.HTTP_201_CREATED)
 
 
