@@ -36,7 +36,7 @@ DEBUG = False
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 
-app = ["listings" ,  'drf_yasg', "corsheaders" ,"rest_framework", 'rest_framework_simplejwt',]
+app = ["listings" ,  'drf_yasg', "corsheaders" ,"rest_framework", 'rest_framework_simplejwt',"anymail",]
 # Application definition
 
 INSTALLED_APPS = [
@@ -196,15 +196,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-
-
+'''
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 465
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
-EMAIL_HOST_USER =  os.getenv("EMAIL")  
-EMAIL_HOST_PASSWORD =os.getenv("PASSWORD") 
+EMAIL_HOST = "smtp-relay.brevo.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False  # Important: Brevo uses TLS on port 587, not SSL
+EMAIL_HOST_USER = os.getenv("EMAIL")  # e.g. your Brevo login email
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_API_KEY")  # use your Brevo API key
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+'''
+
+EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
+
+ANYMAIL = {
+    "SENDINBLUE_API_KEY": os.getenv("EMAIL_API_KEY"),  # Your Brevo API key
+}
+EMAIL_HOST_USER = os.getenv("EMAIL") 
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+#DEFAULT_FROM_EMAIL = os.getenv("EMAIL")  # Your verified custom domain email
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR , "staticfiles")

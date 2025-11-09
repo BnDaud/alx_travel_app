@@ -19,7 +19,7 @@ def paymentInitailization(sender , instance , created , **kwargs):
      
     
     if created:
-        print("i got here")
+       
         
         sendPaymentmail.delay(to_email=user.email , subject="Payment Initalization" ,message= message )
-        print(f"mail sent to {user.email}")
+       

@@ -31,8 +31,6 @@ class BookingViewSet(ModelViewSet):
     pagination_class = LargeResultsSetPagination
     permission_classes = [IsAuthenticated]
 
-
-    
     
     def get_queryset(self):
         
@@ -42,7 +40,7 @@ class BookingViewSet(ModelViewSet):
         return userbookings
     
     def perform_create(self, serializer):
-        print(self.request.user)
+       # print(self.request.user)
         booking = serializer.save()
         user_email = "matrixauto7@gmail.com"
         booking_details = f"Booking ID: {booking.id}\nDestination: {booking.destination}\nDate: {booking.date}"
@@ -52,10 +50,6 @@ class BookingViewSet(ModelViewSet):
     
     
     
-    
-    
-    
-
 
 class PaymentViewset(ModelViewSet):
     serializer_class = Paymentserial
